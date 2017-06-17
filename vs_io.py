@@ -16,7 +16,7 @@ gpio.setup(BUZZER_PIN, gpio.OUT)
 gpio.setup(SWITCH_BUTTON, gpio.IN, pull_up_down=gpio.PUD_UP)
 
 #beep_enable = True
-#BEEP_INTERVAL = 1#beep interval in seconds
+BEEP_INTERVAL = 1#beep interval in seconds
 mode = 0
 
 def beep():
