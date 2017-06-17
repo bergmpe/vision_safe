@@ -6,6 +6,7 @@ import tensorflow as tf
 from io import BytesIO
 from picamera import PiCamera
 from PIL import Image
+import vs_io
 
 def getPicture():
     stream = BytesIO()#create the in-memory stream
@@ -54,6 +55,8 @@ def main():
             top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
             human_string = label_lines[top_k[0]]
             score = predictions[0][top_k[0]]
+            if (human_string == "faixa de pedestre" && score > 0.8):
+                io.notification()
             #for node_id in top_k:
                 #human_string = label_lines[node_id]
                 #score = predictions[0][node_id]

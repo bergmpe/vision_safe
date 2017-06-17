@@ -45,7 +45,7 @@ def change_mode(channel):
     if mode == (len(modes)):
         mode = 0
     notification = modes[mode]
-    notification()
+    #notification()
     print('changed mode', mode)
     
 #notification = beep(1)
