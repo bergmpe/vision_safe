@@ -15,8 +15,8 @@ gpio.setmode(gpio.BOARD)
 gpio.setup(BUZZER_PIN, gpio.OUT)
 gpio.setup(SWITCH_BUTTON, gpio.IN, pull_up_down=gpio.PUD_UP)
 
-beep_enable = True
-BEEP_INTERVAL = 1#beep interval in seconds
+#beep_enable = True
+#BEEP_INTERVAL = 1#beep interval in seconds
 mode = 0
 
 def beep():
@@ -26,7 +26,7 @@ def beep():
         gpio.output(BUZZER_PIN, LOW)
         time.sleep(BEEP_INTERVAL)
     except KeyboardInterrupt:
-        gpio.cleanup()
+        #gpio.cleanup()
         exit
         
 def vibracall():
@@ -35,6 +35,7 @@ def vibracall():
 
     
 modes = {0: beep, 1: vibracall, 2: tts.speak}
+notification = modes[mode]
 #t = threading.Thread(target=beep)
 #t.start()
 
