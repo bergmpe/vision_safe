@@ -21,12 +21,13 @@ mode = 0
 
 def beep():
     try:
-        gpio.output(BUZZER_PIN, HIGH)
-        time.sleep(BEEP_INTERVAL)
         gpio.output(BUZZER_PIN, LOW)
+        time.sleep(BEEP_INTERVAL)
+        gpio.output(BUZZER_PIN, HIGH)
         time.sleep(BEEP_INTERVAL)
     except KeyboardInterrupt:
         #gpio.cleanup()
+        print('deu exption')
         exit
         
 def vibracall():
