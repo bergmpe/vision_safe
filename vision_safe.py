@@ -19,6 +19,7 @@ def getPicture():
 
 def savePicture():
     camera = PiCamera()
+    camera.resolution = (64, 64)
     camera.start_preview()
     time.sleep(3)
     camera.capture('img.jpg')
@@ -51,10 +52,11 @@ def main():
             print("-- %s seconds ---" % final)
             # Sort to show labels of first prediction in order of confidence
             top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
-    
-            for node_id in top_k:
-                human_string = label_lines[node_id]
-                score = predictions[0][node_id]
-                print('%s (score = %.5f)' % (human_string, score))
+            human_string = label_lines[top_k[0]]
+            score = predictions[0][top_k[0]]
+            #for node_id in top_k:
+                #human_string = label_lines[node_id]
+                #score = predictions[0][node_id]
+            print('%s (score = %.5f)' % (human_string, score))
 
 if __name__ == '__main__':main()
