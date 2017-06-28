@@ -1,5 +1,5 @@
+#!/usr/bin/python3
 #it created by Carlos Williamberg on 05/29/2017.
-
 import os, sys, time
 import tensorflow as tf
 
@@ -20,9 +20,9 @@ def getPicture():
 
 def savePicture():
     camera = PiCamera()
-    camera.resolution = (64, 64)
+    #camera.resolution = (64, 64)
     camera.start_preview()
-    time.sleep(3)
+    time.sleep(2.5)
     camera.capture('img.jpg')
     camera.stop_preview()
     camera.close()
@@ -37,11 +37,11 @@ def main():
         graph_def = tf.GraphDef()
         graph_def.ParseFromString(f.read())
         tf.import_graph_def(graph_def, name='')
-    while(True):
-        #image_data = getPicture()# Read in the image_data
-        savePicture()
-        image_data = tf.gfile.FastGFile('img.jpg', 'rb').read()
-        with tf.Session() as sess:
+    with tf.Session() as sess:
+        while(True):
+            #image_data = getPicture()# Read in the image_data
+            savePicture()
+            image_data = tf.gfile.FastGFile('img.jpg', 'rb').read()
             
             # Feed the image_data as input to the graph and get first prediction
             softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
@@ -55,8 +55,8 @@ def main():
             top_k = predictions[0].argsort()[-len(predictions[0]):][::-1]
             human_string = label_lines[top_k[0]]
             score = predictions[0][top_k[0]]
-            if (human_string == "faixa de pedestre" && score > 0.8):
-                io.notification()
+            if (human_string == "faixapedestre" and score > 0.8):
+                vs_io.notification()
             #for node_id in top_k:
                 #human_string = label_lines[node_id]
                 #score = predictions[0][node_id]
